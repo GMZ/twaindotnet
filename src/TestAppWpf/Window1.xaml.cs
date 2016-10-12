@@ -12,7 +12,7 @@ using TwainDotNet.Win32;
 
 namespace TestAppWpf
 {
-    public partial class Window1 : Window
+    public partial class Window1 
     {
         private static AreaSettings AreaSettings = new AreaSettings(Units.Centimeters, 0.1f, 5.7f, 0.1F + 2.6f, 5.7f + 2.6f);
 

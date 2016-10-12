@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Windows.Forms;
 
 namespace TwainDotNet.WinFroms
@@ -10,10 +8,14 @@ namespace TwainDotNet.WinFroms
     /// </summary>
     public class WinFormsWindowMessageHook : IWindowsMessageHook, IMessageFilter
     {
-        IntPtr _windowHandle;
+        readonly IntPtr _windowHandle;
         bool _usingFilter;
 
-        public WinFormsWindowMessageHook(Form window)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="WinFormsWindowMessageHook"/> class.
+        /// </summary>
+        /// <param name="window">The window.</param>
+        public WinFormsWindowMessageHook(IWin32Window window)
         {
             _windowHandle = window.Handle;
         }
@@ -30,8 +32,14 @@ namespace TwainDotNet.WinFroms
             return false;
         }
 
+        /// <summary>
+        /// The handle to the window that is performing the scanning.
+        /// </summary>
         public IntPtr WindowHandle { get { return _windowHandle; } }
 
+        /// <summary>
+        /// Gets or sets if the message filter is in use.
+        /// </summary>
         public bool UseFilter
         {
             get
@@ -40,7 +48,7 @@ namespace TwainDotNet.WinFroms
             }
             set
             {
-                if (!_usingFilter && value == true)
+                if (!_usingFilter && value)
                 {
                     Application.AddMessageFilter(this);
                     _usingFilter = true;
@@ -54,6 +62,9 @@ namespace TwainDotNet.WinFroms
             }
         }
 
+        /// <summary>
+        /// The delegate to call back then the filter is in place and a message arrives.
+        /// </summary>
         public FilterMessage FilterMessageCallback { get; set; }        
     }
 }

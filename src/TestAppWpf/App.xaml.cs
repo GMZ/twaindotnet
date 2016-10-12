@@ -16,7 +16,7 @@ namespace TestAppWpf
         {
             base.OnStartup(e);
 
-            log4net.Config.BasicConfigurator.Configure();
+            //log4net.Config.BasicConfigurator.Configure();
         }
     }
 }

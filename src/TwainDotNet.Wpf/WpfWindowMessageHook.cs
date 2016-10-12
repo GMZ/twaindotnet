@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Windows;
 using System.Windows.Interop;
 
@@ -12,16 +9,29 @@ namespace TwainDotNet.Wpf
     /// </summary>
     public class WpfWindowMessageHook : IWindowsMessageHook
     {
-        HwndSource _source;
-        WindowInteropHelper _interopHelper;
+        readonly HwndSource _source;
+        readonly WindowInteropHelper _interopHelper;
         bool _usingFilter;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="WpfWindowMessageHook"/> class.
+        /// </summary>
+        /// <param name="window">The window.</param>
         public WpfWindowMessageHook(Window window)
         {
             _source = (HwndSource)PresentationSource.FromDependencyObject(window);
             _interopHelper = new WindowInteropHelper(window);            
         }
 
+        /// <summary>
+        /// Filters the message.
+        /// </summary>
+        /// <param name="hwnd">The HWND.</param>
+        /// <param name="msg">The MSG.</param>
+        /// <param name="wParam">The w parameter.</param>
+        /// <param name="lParam">The l parameter.</param>
+        /// <param name="handled">if set to <c>true</c> [handled].</param>
+        /// <returns></returns>
         public IntPtr FilterMessage(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
         {
             if (FilterMessageCallback != null)
@@ -32,6 +42,9 @@ namespace TwainDotNet.Wpf
             return IntPtr.Zero;
         }
 
+        /// <summary>
+        /// Gets or sets if the message filter is in use.
+        /// </summary>
         public bool UseFilter
         {
             get
@@ -54,8 +67,14 @@ namespace TwainDotNet.Wpf
             }
         }
 
+        /// <summary>
+        /// The delegate to call back then the filter is in place and a message arrives.
+        /// </summary>
         public FilterMessage FilterMessageCallback { get; set; }
 
+        /// <summary>
+        /// The handle to the window that is performing the scanning.
+        /// </summary>
         public IntPtr WindowHandle { get { return _interopHelper.Handle; } }
     }
 }
