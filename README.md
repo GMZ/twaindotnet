@@ -40,6 +40,8 @@ Also check out another alternative library: [NTwain](http://www.nuget.org/packag
    * Canon !CanoScan FB636U
    * Canon !CanoScan 8000F
    * Canon PIXMA MP280
+   * Canon imageFormula DR-2010c
+   * Canon CanoScan Lide 200
 
 ### Epson
    * Epson Stylus Office TX300F
