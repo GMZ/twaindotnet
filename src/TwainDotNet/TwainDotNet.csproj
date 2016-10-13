@@ -84,6 +84,7 @@
     <Compile Include="TwainNative\Frame.cs" />
     <Compile Include="TwainNative\ImageFileFormat.cs" />
     <Compile Include="TwainNative\ImageLayout.cs" />
+    <Compile Include="TwainNative\Lightpath.cs" />
     <Compile Include="TwainNative\Orientation.cs" />
     <Compile Include="TwainNative\PageType.cs" />
     <Compile Include="TwainNative\PixelType.cs" />
