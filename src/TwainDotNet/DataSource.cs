@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Runtime.Remoting.Messaging;
 using System.Text;
 using TwainDotNet.TwainNative;
 
@@ -146,6 +147,22 @@ namespace TwainDotNet
             }
         }
 
+        public bool SupportsFilmScanner
+        {
+            get
+            {
+                try
+                {
+                    var cap = new Capability(Capabilities.Lightpath, TwainType.Int16, _applicationId, SourceId); 
+                    //return ((Lightpath)cap.GetBasicValue().Int16Value) != Lightpath.Transmissive;
+                    return true;
+                }
+                catch
+                {
+                    return false;
+                }
+            }
+        }
         public void NegotiateColour(ScanSettings scanSettings)
         {
             try
@@ -168,6 +185,30 @@ namespace TwainDotNet
             catch
             {
                 // Do nothing if the data source does not support the requested capability
+            }
+
+        }
+
+        public void NegotiateLightPath(ScanSettings scanSettings)
+        {
+            try
+            {
+                if (scanSettings.UseFilmScanner.HasValue && SupportsFilmScanner)
+                {
+                    if (scanSettings.UseFilmScanner.Value == true)
+                    {
+                        Capability.SetBasicCapability(Capabilities.Lightpath, (ushort)Lightpath.Transmissive, TwainType.UInt16, _applicationId, SourceId);
+                    }
+                    else
+                    {
+                        Capability.SetBasicCapability(Capabilities.Lightpath, (ushort)Lightpath.Reflective, TwainType.UInt16, _applicationId, SourceId);
+                    }
+                }
+            }
+            catch
+            {
+                // Do nothing if the data source does not support the requested capability 
+
             }
 
         }
@@ -310,6 +351,7 @@ namespace TwainDotNet
             NegotiateTransferCount(settings);
             NegotiateFeeder(settings);
             NegotiateDuplex(settings);
+            NegotiateLightPath(settings); 
 
             if (settings.UseDocumentFeeder == true &&
                 settings.Page != null)
@@ -551,25 +593,32 @@ namespace TwainDotNet
         {
             if (SourceId.Id != 0)
             {
-                UserInterface userInterface = new UserInterface();
-
-                TwainResult result = Twain32Native.DsUserInterface(
-                    _applicationId,
-                    SourceId,
-                    DataGroup.Control,
-                    DataArgumentType.UserInterface,
-                    Message.DisableDS,
-                    userInterface);
-
-                if (result != TwainResult.Failure)
+                try
                 {
-                    result = Twain32Native.DsmIdentity(
+                    UserInterface userInterface = new UserInterface();
+
+                    TwainResult result = Twain32Native.DsUserInterface(
                         _applicationId,
-                        IntPtr.Zero,
+                        SourceId,
                         DataGroup.Control,
-                        DataArgumentType.Identity,
-                        Message.CloseDS,
-                        SourceId);
+                        DataArgumentType.UserInterface,
+                        Message.DisableDS,
+                        userInterface);
+
+                    if (result != TwainResult.Failure)
+                    {
+                        result = Twain32Native.DsmIdentity(
+                            _applicationId,
+                            IntPtr.Zero,
+                            DataGroup.Control,
+                            DataArgumentType.Identity,
+                            Message.CloseDS,
+                            SourceId);
+                    }
+                }
+                catch 
+                {
+                    // ignore this is bypass an error that if trigerd needs the whole twain classto be reinitialised
                 }
             }
         }
