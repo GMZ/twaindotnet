@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace TwainDotNet.TwainNative
+﻿namespace TwainDotNet.TwainNative
 {
-    class TwainConstants
+    internal class TwainConstants
     {
         public const short ProtocolMajor = 1;
         public const short ProtocolMinor = 9;

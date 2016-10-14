@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Runtime.InteropServices;
-using TwainDotNet.Win32;
-using log4net;
+﻿using System.Runtime.InteropServices;
 
 namespace TwainDotNet.TwainNative
 {

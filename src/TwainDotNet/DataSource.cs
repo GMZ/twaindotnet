@@ -163,6 +163,7 @@ namespace TwainDotNet
                 }
             }
         }
+
         public void NegotiateColour(ScanSettings scanSettings)
         {
             try
@@ -328,9 +329,9 @@ namespace TwainDotNet
         {
             try
             {
-                if (scanSettings.ShowProgressIndicatorUI.HasValue)
+                if (scanSettings.ShowProgressIndicatorUi.HasValue)
                 {
-                    Capability.SetCapability(Capabilities.Indicators, scanSettings.ShowProgressIndicatorUI.Value, _applicationId, SourceId);
+                    Capability.SetCapability(Capabilities.Indicators, scanSettings.ShowProgressIndicatorUi.Value, _applicationId, SourceId);
                 }
             }
             catch
@@ -449,7 +450,7 @@ namespace TwainDotNet
         public bool Enable(ScanSettings settings)
         {
             UserInterface ui = new UserInterface();
-            ui.ShowUI = (short)(settings.ShowTwainUI ? 1 : 0);
+            ui.ShowUI = (short)(settings.ShowTwainUi ? 1 : 0);
             ui.ModalUI = 1;
             ui.ParentHand = _messageHook.WindowHandle;
 

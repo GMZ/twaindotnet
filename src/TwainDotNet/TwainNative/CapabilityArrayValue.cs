@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Runtime.InteropServices;
-using TwainDotNet.Win32;
+﻿using System.Runtime.InteropServices;
 
 namespace TwainDotNet.TwainNative
 {

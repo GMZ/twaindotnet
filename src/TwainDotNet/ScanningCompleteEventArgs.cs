@@ -8,7 +8,7 @@ namespace TwainDotNet
 
         public ScanningCompleteEventArgs(Exception exception)
         {
-            this.Exception = exception;
+            Exception = exception;
         }
     }
 }

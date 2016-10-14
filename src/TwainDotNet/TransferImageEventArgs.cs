@@ -10,8 +10,8 @@ namespace TwainDotNet
 
         public TransferImageEventArgs(Bitmap image, bool continueScanning)
         {
-            this.Image = image;
-            this.ContinueScanning = continueScanning;
+            Image = image;
+            ContinueScanning = continueScanning;
         }
     }
 }

@@ -9,10 +9,10 @@ namespace TwainDotNet
     /// </summary>
     public class RotationSettings : INotifyPropertyChanged
     {
-        private bool automaticDeskew;
-        private bool automaticBorderDetection;
-        private bool automaticRotate;
-        private FlipRotation flipSideRotation;
+        private bool _automaticDeskew;
+        private bool _automaticBorderDetection;
+        private bool _automaticRotate;
+        private FlipRotation _flipSideRotation;
 
         /// <summary>
         /// Gets or sets a value indicating whether [automatic deskew].
@@ -22,13 +22,13 @@ namespace TwainDotNet
         {
             get
             {
-                return automaticDeskew;
+                return _automaticDeskew;
             }
             set
             {
-                if (value != automaticDeskew)
+                if (value != _automaticDeskew)
                 {
-                    automaticDeskew = value;
+                    _automaticDeskew = value;
                     OnPropertyChanged("AutomaticDeskew");
                 }
             }
@@ -44,13 +44,13 @@ namespace TwainDotNet
         {
             get
             {
-                return automaticBorderDetection;
+                return _automaticBorderDetection;
             }
             set
             {
-                if (value != automaticBorderDetection)
+                if (value != _automaticBorderDetection)
                 {
-                    automaticBorderDetection = value;
+                    _automaticBorderDetection = value;
                     OnPropertyChanged("AutomaticBorderDetection");
                 }
             }
@@ -64,13 +64,13 @@ namespace TwainDotNet
         {
             get
             {
-                return automaticRotate;
+                return _automaticRotate;
             }
             set
             {
-                if (value != automaticRotate)
+                if (value != _automaticRotate)
                 {
-                    automaticRotate = value;
+                    _automaticRotate = value;
                     OnPropertyChanged("AutomaticRotate");
                 }
             }
@@ -84,13 +84,13 @@ namespace TwainDotNet
         {
             get
             {
-                return flipSideRotation;
+                return _flipSideRotation;
             }
             set
             {
-                if (value != flipSideRotation)
+                if (value != _flipSideRotation)
                 {
-                    flipSideRotation = value;
+                    _flipSideRotation = value;
                     OnPropertyChanged("FlipSideRotation");
                 }
             }

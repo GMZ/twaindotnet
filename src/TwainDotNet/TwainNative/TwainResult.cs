@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
+﻿// ReSharper disable InconsistentNaming
 namespace TwainDotNet.TwainNative
 {
     public enum TwainResult : short

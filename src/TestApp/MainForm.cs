@@ -53,8 +53,8 @@ namespace TestApp
 
             _settings = new ScanSettings();
             _settings.UseDocumentFeeder = useAdfCheckBox.Checked;
-            _settings.ShowTwainUI = useUICheckBox.Checked;
-            _settings.ShowProgressIndicatorUI = showProgressIndicatorUICheckBox.Checked;
+            _settings.ShowTwainUi = useUICheckBox.Checked;
+            _settings.ShowProgressIndicatorUi = showProgressIndicatorUICheckBox.Checked;
             _settings.UseDuplex = useDuplexCheckBox.Checked;
             _settings.Resolution =
                 blackAndWhiteCheckBox.Checked

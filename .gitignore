@@ -5,5 +5,5 @@ syntax: glob
 [Bb]in
 [Dd]ebug*/
 obj/
-src/TwainDotNet.Wpf/TwainDotNet.WPF.1.0.0.nupkg
+*.nupkg
 *.nuspec

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 
 namespace TwainDotNet
 {
@@ -12,25 +9,25 @@ namespace TwainDotNet
             ShouldTransferAllPages = true;
         }
 
-        bool _showTwainUI;
+        private bool _showTwainUi;
 
         /// <summary>
         /// Indicates if the TWAIN/driver user interface should be used to pick the scan settings.
         /// </summary>
-        public bool ShowTwainUI
+        public bool ShowTwainUi
         {
-            get { return _showTwainUI; }
+            get { return _showTwainUi; }
             set
             {
-                if (value != _showTwainUI)
+                if (value != _showTwainUi)
                 {
-                    _showTwainUI = value;
+                    _showTwainUi = value;
                     OnPropertyChanged("ShowTwainUI");
                 }
             }
         }
 
-        bool? _showProgressIndicatorUI;
+        bool? _showProgressIndicatorUi;
 
         /// <summary>
         /// Gets or sets a value indicating whether [show progress indicator ui].
@@ -39,14 +36,14 @@ namespace TwainDotNet
         /// The Source will continue to display device-specific instructions and error messages even with the Source user interface and progress indicators turned off. 
         /// </summary>
         /// <value><c>true</c> if [show progress indicator ui]; otherwise, <c>false</c>.</value>
-        public bool? ShowProgressIndicatorUI
+        public bool? ShowProgressIndicatorUi
         {
-            get { return _showProgressIndicatorUI; }
+            get { return _showProgressIndicatorUi; }
             set
             {
-                if (value != _showProgressIndicatorUI)
+                if (value != _showProgressIndicatorUi)
                 {
-                    _showProgressIndicatorUI = value;
+                    _showProgressIndicatorUi = value;
                     OnPropertyChanged("ShowProgressIndicatorUI");
                 }
             }

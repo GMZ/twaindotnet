@@ -5,22 +5,21 @@ using System.Runtime.InteropServices;
 using TwainDotNet.Win32;
 using System.Reflection;
 using System.Drawing;
-using log4net;
 
 namespace TwainDotNet
 {
+    /// <summary>
+    /// DataSourceManager
+    /// </summary>
+    /// <seealso cref="System.IDisposable" />
     public class DataSourceManager : IDisposable
     {
-        /// <summary>
-        /// The logger for this class.
-        /// </summary>
-        static ILog log = LogManager.GetLogger(typeof(DataSourceManager));
-
         IWindowsMessageHook _messageHook;
         Event _eventMessage;
 
         public Identity ApplicationId { get; private set; }
         public DataSource DataSource { get; private set; }
+        public IList<Image> Images { get; private set; }
 
         public DataSourceManager(Identity applicationId, IWindowsMessageHook messageHook)
         {
@@ -30,6 +29,7 @@ namespace TwainDotNet
             ScanningComplete += delegate { };
             TransferImage += delegate { };
 
+            Images = new List<Image>();
             _messageHook = messageHook;
             _messageHook.FilterMessageCallback = FilterMessage;
             IntPtr windowHandle = _messageHook.WindowHandle;
@@ -47,8 +47,8 @@ namespace TwainDotNet
 
             if (result == TwainResult.Success)
             {
-                //according to the 2.0 spec (2-10) if (applicationId.SupportedGroups
-                // | DataGroup.Dsm2) > 0 then we should call DM_Entry(id, 0, DG_Control, DAT_Entrypoint, MSG_Get, wh)
+                //according to the 2.0 spec (2-10) if (applicationId.SupportedGroups | DataGroup.Dsm2) > 0 
+                //then we should call DM_Entry(id, 0, DG_Control, DAT_Entrypoint, MSG_Get, wh)
                 //right here
                 DataSource = DataSource.GetDefault(ApplicationId, _messageHook);
             }
@@ -105,21 +105,23 @@ namespace TwainDotNet
                 return IntPtr.Zero;
             }
 
-            int pos = User32Native.GetMessagePos();
+            var pos = User32Native.GetMessagePos();
 
-            WindowsMessage message = new WindowsMessage();
-            message.hwnd = hwnd;
-            message.message = msg;
-            message.wParam = wParam;
-            message.lParam = lParam;
-            message.time = User32Native.GetMessageTime();
-            message.x = (short)pos;
-            message.y = (short)(pos >> 16);
+            var message = new WindowsMessage
+            {
+                hwnd = hwnd,
+                message = msg,
+                wParam = wParam,
+                lParam = lParam,
+                time = User32Native.GetMessageTime(),
+                x = (short) pos,
+                y = (short) (pos >> 16)
+            };
 
             Marshal.StructureToPtr(message, _eventMessage.EventPtr, false);
             _eventMessage.Message = 0;
 
-            TwainResult result = Twain32Native.DsEvent(
+            var result = Twain32Native.DsEvent(
                 ApplicationId,
                 DataSource.SourceId,
                 DataGroup.Control,
@@ -227,15 +229,12 @@ namespace TwainDotNet
                         break;
                     }
 
-                    if (hbitmap == IntPtr.Zero)
-                    {
-                        log.Warn("Transfer complete but bitmap pointer is still null.");
-                    }
-                    else
+                    if (hbitmap != IntPtr.Zero)
                     {
                         using (var renderer = new BitmapRenderer(hbitmap))
                         {
-                            TransferImageEventArgs args = new TransferImageEventArgs(renderer.RenderToBitmap(), pendingTransfer.Count != 0);
+                            var args = new TransferImageEventArgs(renderer.RenderToBitmap(), pendingTransfer.Count != 0);
+                            Images.Add(renderer.RenderToBitmap());
                             TransferImage(this, args);
                             if (!args.ContinueScanning)
                                 break;

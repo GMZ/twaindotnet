@@ -45,6 +45,7 @@ namespace TestAppWpf
                 _twain.ScanningComplete += delegate
                 {
                     IsEnabled = true;
+                    var count = _twain.Images.Count;
                 };
 
                 var sourceList = _twain.SourceNames;
@@ -67,8 +68,8 @@ namespace TestAppWpf
             _settings = new ScanSettings
                 {
                     UseDocumentFeeder = UseAdfCheckBox.IsChecked,
-                    ShowTwainUI = UseUICheckBox.IsChecked ?? false,
-                    ShowProgressIndicatorUI = ShowProgressCheckBox.IsChecked,
+                    ShowTwainUi = UseUICheckBox.IsChecked ?? false,
+                    ShowProgressIndicatorUi = ShowProgressCheckBox.IsChecked,
                     UseDuplex = UseDuplexCheckBox.IsChecked,
                     Resolution = (BlackAndWhiteCheckBox.IsChecked ?? false)
                                      ? ResolutionSettings.Fax

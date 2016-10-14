@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using TwainDotNet.TwainNative;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 
 namespace TwainDotNet
 {

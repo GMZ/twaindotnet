@@ -1,17 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
-using System.Reflection;
-using System.Runtime.InteropServices;
-using TwainDotNet.TwainNative;
-using TwainDotNet.Win32;
 using System.Drawing;
+// ReSharper disable PossibleNullReferenceException
 
 namespace TwainDotNet
 {
     public class Twain
     {
-        DataSourceManager _dataSourceManager;
+        private readonly DataSourceManager _dataSourceManager;
 
         public Twain(IWindowsMessageHook messageHook)
         {
@@ -99,6 +95,20 @@ namespace TwainDotNet
                 }
 
                 return result;
+            }
+        }
+
+        /// <summary>
+        /// Gets the images.
+        /// </summary>
+        /// <value>
+        /// The images.
+        /// </value>
+        public IList<Image> Images
+        {
+            get
+            {
+                return _dataSourceManager.Images;
             }
         }
     }

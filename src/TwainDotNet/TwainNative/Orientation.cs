@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace TwainDotNet.TwainNative
+﻿namespace TwainDotNet.TwainNative
 {
     /// <summary>
     /// Twain spec ICAP_ORIENTATION values.

@@ -1,5 +1,4 @@
-﻿
-namespace TwainDotNet.TwainNative 
+﻿namespace TwainDotNet.TwainNative 
 {
     /// <summary>
     /// Twain spec ICAP_IMAGEFILEFORMAT values.
